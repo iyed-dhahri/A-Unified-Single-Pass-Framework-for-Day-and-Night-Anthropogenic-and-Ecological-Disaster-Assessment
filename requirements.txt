@@ -1,0 +1,13 @@
+# Versions used to produce examples/expected (Python 3.11). Install PyTorch first, e.g. for CPU only:
+#   pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1
+torchvision==0.20.1
+segmentation-models-pytorch==0.5.0
+timm==1.0.14
+albumentations==2.0.6
+opencv-python-headless==4.11.0.86
+numpy==1.26.4
+scipy==1.15.1
+pillow==11.1.0
+matplotlib==3.10.0
+pytest
