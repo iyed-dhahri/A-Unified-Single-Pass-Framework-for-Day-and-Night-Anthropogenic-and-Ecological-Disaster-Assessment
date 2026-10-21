@@ -132,7 +132,8 @@ clean_river 335, flood_water 105) and 464 from FloodNet (flood_water 361, clean_
 source image (train 1,275 / val 345 / test 236). Strong appearance augmentation and a
 domain-adversarial head (gradient reversal on a RescueNet / FloodNet discriminator, λ ramped up to 0.5, the script default)
 reduce the dataset shortcut; the domain head is dropped at inference. Best epoch 42 of 60; test accuracy
-0.962 (RescueNet patches 0.949, FloodNet patches 1.000), `test_metrics.json`.
+0.962 (RescueNet patches 0.949, FloodNet patches 1.000), `test_metrics.json`. Examples and the composition of the
+patch dataset: [`examples/eco_patches/`](../examples/eco_patches/README.md).
 
 **Turbidity classifier.** torchvision ResNet-18 with a linear layer 512 → 5 (11,179,077 parameters),
 input 224 × 224, levels "Class 1" … "Class 5" (low → high turbidity). Training data: 11,518

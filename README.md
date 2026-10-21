@@ -14,7 +14,45 @@ image ─► luminance rule (τ = 84) ─┬─ day ─────────�
                                                                      ─► Head A map, ecological map, turbidity map
 ```
 
-AnthropEco-Net is described in detail, from the code, in **[docs/ANTHROPECONET.md](docs/ANTHROPECONET.md)**.
+## The model: AnthropEco-Net
+
+![AnthropEco-Net architecture](docs/figures/anthropeconet.png)
+
+- **Shared encoder.** SegFormer MiT-B2 on a 1024 × 1024 resize of the image; four feature stages
+  (64, 128, 320 and 512 channels at strides 4, 8, 16 and 32), 24.2 M parameters.
+- **Head A: anthropogenic damage.** The SegFormer MLP decoder fuses the four stages and predicts
+  6 classes: background, building-intact, building-damaged, road, water, tree (0.53 M parameters).
+  Trained with median-frequency-weighted cross-entropy, Dice and focal loss.
+- **Head B: natural / anthropogenic partition.** A single 1 × 1 convolution on the deepest feature
+  (1,026 parameters), trained with cross-entropy at weight 0.5. It acts as the gate of the ecological
+  expert.
+- **Gates.** A pixel is analysed by the ecological expert if Head B calls it natural or Head A calls it
+  water, unless Head A calls it tree. Head A also limits what each pixel may become (water →
+  clean_river / debris_water / flood_water; background → debris / flood_water, flood only within 30 px of
+  water).
+- **Ecological expert.** At native resolution, 128 × 128 patches (stride 64) of the gated regions are
+  classified by a ResNet-18 patch classifier (4 categories, trained on the patch dataset below). Head A
+  water patches also go to a ResNet-18 turbidity classifier (5 levels). The turbidity classifier was
+  trained on laboratory close-ups and is **exploratory** on aerial images.
+- **Fusion.** The patch probabilities are averaged per pixel, restricted to the categories allowed by the
+  context and kept if their confidence is at least 0.5. The ecological map is then cleaned: flood must
+  touch water, regions under 200 px are removed, and an opening and a closing are applied.
+
+The result is three masks at the image resolution: the Head A map, the ecological map and the turbidity
+map. AnthropEco-Net itself has 24.7 M parameters and runs in 16.2 ms per 1024 × 1024 image on an
+NVIDIA H200. Every element, with tensor shapes, training details, parameters and latency, is described
+from the code in **[docs/ANTHROPECONET.md](docs/ANTHROPECONET.md)**.
+
+## Ecological patch dataset
+
+To train the patch classifier we labelled 1,856 patches of 128 × 128 px, cropped at native resolution
+from the training images of RescueNet and FloodNet, in four categories: clean_river, debris_water,
+flood_water and debris. Examples from FloodNet:
+
+![Example ecological patches](examples/eco_patches/patch_grid.jpg)
+
+How the dataset was built, its size per category, dataset and split, and more examples:
+**[examples/eco_patches/README.md](examples/eco_patches/README.md)**.
 
 ## Installation
 
