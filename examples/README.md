@@ -13,8 +13,8 @@ patch classifier.
 (`head_a.png`, `head_b.png`, `eco.png`, `turbidity.png`; class indices, 255 = not natural / not scored) and
 a downsized copy of the demo panel (`panel.jpg`). `tests/test_demo.py` compares the demo's output with them.
 
-`eco_patches/` holds example patches of the ecological patch dataset (FloodNet patches only), see
-[`eco_patches/README.md`](eco_patches/README.md).
+`eco_patches/` holds example patches of the ecological patch dataset (5 per category, from FloodNet and
+RescueNet); their credit and licences are in [`eco_patches/README.md`](eco_patches/README.md).
 
 ## Credit and licence
 

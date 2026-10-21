@@ -20,5 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-The example images in examples/ are covered by their own licence
-(examples/LICENSE-CDLA-Permissive-1.0.txt).
+The example images in examples/ are covered by their own licences: FloodNet images
+(examples/LICENSE-CDLA-Permissive-1.0.txt) and, in examples/eco_patches/, RescueNet
+patches (CC BY-NC-ND 4.0); see examples/README.md and examples/eco_patches/README.md.

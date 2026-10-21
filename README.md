@@ -47,7 +47,7 @@ from the code in **[docs/ANTHROPECONET.md](docs/ANTHROPECONET.md)**.
 
 To train the patch classifier we labelled 1,856 patches of 128 × 128 px, cropped at native resolution
 from the training images of RescueNet and FloodNet, in four categories: clean_river, debris_water,
-flood_water and debris. Examples from FloodNet:
+flood_water and debris. Five examples per category:
 
 ![Example ecological patches](examples/eco_patches/patch_grid.jpg)
 
@@ -142,6 +142,11 @@ by 16 px, more than the enhancer's 7-px receptive field, so the output is the sa
 rounding and bit-identical on the example images; the one-pass mode needs about 20 GB of RAM for a
 14-megapixel image on CPU).
 
+**GPU.** `--device auto` (the default) uses the GPU when PyTorch sees one; install the CUDA build of
+PyTorch for that. On an NVIDIA H200 the same three images take 8.4 s, 2.3 s and 2.6 s (the first includes
+the CUDA warm-up). GPU and CPU arithmetic differ slightly, so the GPU maps agree with
+`examples/expected/` (made on CPU) on 99.91–99.99 % of the pixels instead of 100 %.
+
 Example panel (synthetic night version of FloodNet image 7253, routed to night and enhanced):
 
 ![Example output panel](examples/expected/floodnet_7253_synthetic_night/panel.jpg)
@@ -158,7 +163,7 @@ by the full research code on the same images.
 ## Datasets
 
 The models were trained and evaluated on the following datasets, which are **not redistributed** here
-(apart from the FloodNet example images in `examples/`, see [examples/README.md](examples/README.md)):
+(apart from the example images and patches in `examples/`, see [examples/README.md](examples/README.md)):
 
 - **RescueNet** (CC BY-NC-ND 4.0): <https://github.com/BinaLab/RescueNet-A-High-Resolution-Post-Disaster-UAV-Dataset-for-Semantic-Segmentation>
 - **FloodNet** (CDLA-Permissive 1.0): <https://github.com/BinaLab/FloodNet-Supervised_v1.0>
@@ -167,5 +172,6 @@ The models were trained and evaluated on the following datasets, which are **not
 
 ## Licence
 
-Code: MIT (see [LICENSE](LICENSE)). Example images: CDLA-Permissive 1.0 (FloodNet). Weights: see
+Code: MIT (see [LICENSE](LICENSE)). Example images: CDLA-Permissive 1.0 (FloodNet) and, for the
+debris and debris_water example patches, CC BY-NC-ND 4.0 (RescueNet). Weights: see
 [weights/README.md](weights/README.md).
