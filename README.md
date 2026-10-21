@@ -125,16 +125,7 @@ The models were trained and evaluated on the following datasets, which are **not
 - **RescueNet** (CC BY-NC-ND 4.0): <https://github.com/BinaLab/RescueNet-A-High-Resolution-Post-Disaster-UAV-Dataset-for-Semantic-Segmentation>
 - **FloodNet** (CDLA-Permissive 1.0): <https://github.com/BinaLab/FloodNet-Supervised_v1.0>
 
-## Citation
 
-```bibtex
-@inproceedings{anonymous2026anthropeco,
-  title     = {A Unified Single-Pass Framework for Day-and-Night Anthropogenic and Ecological Disaster Impact Assessment from UAV Imagery},
-  author    = {Anonymous},
-  booktitle = {Under review},
-  year      = {2026}
-}
-```
 
 ## Licence
 
