@@ -211,19 +211,4 @@ Gold 6126 CPU with 24 threads (see the README).
   types, sensors or altitudes are untested.
 - `TODO`: check this list against the limitations paragraph of the paper.
 
-## Code vs paper
 
-Points where the implementation is more specific than (or differs from) a short description of the method:
-
-1. The expert's gate is (Head B natural **or** Head A water) **and not** Head A tree, not only
-   "Head A water and Head B natural".
-2. The turbidity classifier is gated by the Head A water mask only.
-3. Head A context restricts the categories (water → 3 categories, background → 2, tree → none), and
-   flood_water is allowed on background pixels only within 30 px of water.
-4. Patches are processed only if ≥ 50 % of their pixels are eligible (or water).
-5. "Fusion" includes post-processing: water connectivity of flood (30 px), removal of regions < 200 px,
-   opening and closing.
-6. The experts run at native resolution, AnthropEco-Net at a 1024 × 1024 resize.
-7. Head A loss: median-frequency-weighted cross-entropy + Dice **+ focal loss** (`--focal` in the
-   launch script of the released checkpoint; the log of the first training epochs is not available,
-   the resumed run's log shows the same launch script).
